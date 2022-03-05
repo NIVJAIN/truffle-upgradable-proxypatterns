@@ -54,11 +54,11 @@
 ### 2-check the contract address and getCount and Increment the counter to 5
 ```
 1. truffle console --network ganache
-2. box = await ERC20CustomUpgradeableV1.deployed()
-3. box.address
-4. (await box.getCount())
-5. repeat this x5 (await box.increment())
-6. (await box.getCount()) //output should show 5
+2. v1 = await ERC20CustomUpgradeableV1.deployed()
+3. v1.address
+4. (await v1.getCount())
+5. repeat this x5 (await v1.increment())
+6. (await v1.getCount()) //output should show 5
 ```
 ### 3-Deploy V2 version second (More function added to V2)
 ```
@@ -67,27 +67,27 @@
 4. truffle compile --all
 5. truffle migrate --network ganache
 ```
-### 4-check the contract address (it should be same) and finally check the getCount it should return 5
+### 4-check the contract address (it should be same as the v1.address) and finally check the getCount it should return 5
 ```
-1. box = await ERC20CustomUpgradeableV2.deployed()
-2. box.address (This address should be the same as V1 address)
-3. (await box.getCount()) -> output should show 5
+1. v2 = await ERC20CustomUpgradeableV2.deployed()
+2. v2.address (This address should be the same as V1 address)
+3. (await v2.getCount()) -> output should show 5
 ```
 
 
 ### TRUFFLE CONSOLE COMMANDS
 ```
 npx truffle console --network ganache
-box = await ERC20CustomUpgradeableV1.deployed()
-box.address
-(await box.getCount())
-(await box.increment()) x 5
+v1 = await ERC20CustomUpgradeableV1.deployed()
+v1.address
+(await v1.getCount())
+(await v1.increment()) x 5
 
 npx truffle console --network ganache
-box = await ERC20CustomUpgradeableV2.deployed()
-box.address
-(await box.getCount())
-(await box.increment()) x 5
+v2 = await ERC20CustomUpgradeableV2.deployed()
+v2.address
+(await v2.getCount())
+(await v2.increment()) x 5
 ```
 
 
