@@ -9,7 +9,7 @@
 ```
 
 
-# PRE-REQUISITE
+### PRE-REQUISITE
 ```
 1. nodejs & npm
 2. truffle installation
@@ -17,126 +17,77 @@
 ```
 
 
-# Installation Steps
+### Installation Steps
 ```
 1. brew install nodejs [node -v & npm -v]
 2. npm install -g truffle
 3. npm install -g ganache-cli
 ```
 
-# Ganache Deployment (Local Ganche)
+### Ganache Deployment (Local Ganche)
 ```
 1. git clone 
 2. cd <repo> && npm install --save
 3. truffle compile
-4. truffle migrate --network dev 0r truffle migrate --network dev --reset
+4. truffle migrate --network ganache 0r truffle migrate --network ganache --reset
 4. npm run ganache
 ```
 
 
-# Ropsten Deployment (Public Testnet)
+### Testing the Upgradable smart contract functionality
 ```
-0. IMP to note make sure account 0 is funded with test ether & in .env change the BLOCKCHAIN_URL to ROPSTEN
-1. git clone 
-2. cd <repo> && npm install --save
-3. truffle compile
-4. npx truffle console --network ropsten
-5. truffle(ropsten)> web3.eth.getBalance(accounts[0]) 
-6. make sure ethers are funded to the above account[0]
-7. truffle(ropsten)> web3.eth.getBalance(accounts[0]) '200000000000000000'
-8. truffle migrate --network ropsten
-9. npm run ropsten
+1. 1-Deploy V1 version first
+2. 2-check the contract address and getCount and Increment the counter to 5
+3. 3-Deploy V2 version second (More function added to V2)
+4. 4-check the contract address (it should be same) and finally check the getCount it should return 5
 ```
-
-
-<!-- npx mnemonics
-npx truffle console --network ropsten
-accounts
-web3.eth.getBalance(accounts[0]) -->
-
-
-# ROPSTEN NETWORK
+### 1-Deploy V1 version first
 ```
-================================================================
-MAC ROPSTEN Setup (Account 1 & 2 imported to Metamask)
-================================================================
-λ  truffle-ropsten-dapp git:(main) truffle console --network ropsten
-truffle(ropsten)> accounts
-[
-  '0x237a3B44F00265993216FdD6d3DDf5e29B085C2A',
-  '0xC837100d9809322Bc8b1D4167a8f000F1F0c9c96',
-  '0x7c2C8ca1cf274bFCaB73873cB53f17FD625366c4',
-  '0x63Fa89B5fb72CAb5BfEFff39c6c870607d38D035',
-  '0x7e46A6d24305Af3959f890C807D3bdE3EB7BC1c3',
-  '0x8FA506f6636c69101344Bb2Bd66FA1CF301D9E86',
-  '0x749BBa72e1dfCE20cB9a5CF2eBafb456D3174453',
-  '0x3d665A37F03d115Ab5973B0eE2b1508a64A1a7EB',
-  '0xD6CCF377d5c6ac65eD62DFE6C46Ab223B5b934f1',
-  '0xE054A6e8578cC9648FBd763FBB31D7B6B378FeE5'
-]
-truffle(ropsten)> web3.eth.getBalance(accounts[0])
-'198850192004071963'
-truffle(ropsten)> web3.eth.getBalance(accounts[1])
-'1200000000000000000'
-truffle(ropsten)> 
-================================================================
+1. cd contract && mv ERC20CustomUpgradableV2.sol to ERC20CustomUpgradableV2_
+2. cd migrations && mv 3_upgrade_erc20_contract_v2.js to 3_upgrade_erc20_contract_v2_
+3. ganache-cli -p 7545
+4. truffle compile --all
+5. truffle migrate --network ganache 
+6. truffle console --network ganache
+7. box = await ERC20CustomUpgradeableV1.deployed()
 ```
-
-# ROPSTEN NETWORK to check details on | transaction | tokens | contract 
+### 2-check the contract address and getCount and Increment the counter to 5
 ```
-https://ropsten.etherscan.io/address/0x237a3B44F00265993216FdD6d3DDf5e29B085C2A
-https://ropsten.etherscan.io/address/0xC837100d9809322Bc8b1D4167a8f000F1F0c9c96
-
+1. truffle console --network ganache
+2. box = await ERC20CustomUpgradeableV1.deployed()
+3. box.address
+4. (await box.getCount())
+5. repeat this x5 (await box.increment())
+6. (await box.getCount()) //output should show 5
 ```
-
-# Smart Contract interaction
+### 3-Deploy V2 version second (More function added to V2)
 ```
-ganache-cli --p 7545
-cd <repo>
-npm run ganache (dont use node server.js)
-http:\\localhost:9000\hello
-
-Output as shown below
-HTTP/1.1 200 OK
-X-Powered-By: Express
-Access-Control-Allow-Origin: *
-Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization
-Content-Type: application/json; charset=utf-8
-Content-Length: 36
-ETag: W/"24-yBabfZF1nE2M7uuXaWiPp1tiARA"
-Date: Fri, 18 Feb 2022 09:27:56 GMT
-Connection: close
-
-{
-  "message": {
-    "result": "hello world"
-  }
-}
-
+1. cd contracts && mv ERC20CustomUpgradableV2_ to ERC20CustomUpgradableV2.sol
+2. cd migrations && mv 3_upgrade_erc20_contract_v2_ to 3_upgrade_erc20_contract_v2.js
+4. truffle compile --all
+5. truffle migrate --network ganache
+```
+### 4-check the contract address (it should be same) and finally check the getCount it should return 5
+```
+1. box = await ERC20CustomUpgradeableV2.deployed()
+2. box.address (This address should be the same as V1 address)
+3. (await box.getCount()) -> output should show 5
 ```
 
 
-# Get test ethers from below link
-https://faucet.ropsten.be/ didnt work for me
-https://faucet.egorfine.com/  works but only recieving 0.2 ethers.
-
-
-/*
+### TRUFFLE CONSOLE COMMANDS
+```
 npx truffle console --network ganache
-box = await Box.deployed()
- boxV2 = await BoxV2.at(box.address)
-(await boxV2.retrieve()).toString()
-await boxV2.increment()
-(await boxV2.retrieve()).toString()
-
 box = await ERC20CustomUpgradeableV1.deployed()
 box.address
-0xCd1119DAD1345Ff39D8c8591Dd551e1FfE91e63c
-0x537652B6a65D4a30f80f5Cd998eaAC598f7b1976
 (await box.getCount())
-(await box.increment())
-(await box.decrement())
-(await box.setText("IamFromV1"))
-(await box.getText())
-*/ 
+(await box.increment()) x 5
+
+npx truffle console --network ganache
+box = await ERC20CustomUpgradeableV2.deployed()
+box.address
+(await box.getCount())
+(await box.increment()) x 5
+```
+
 
