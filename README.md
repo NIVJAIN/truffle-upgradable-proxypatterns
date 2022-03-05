@@ -36,10 +36,10 @@
 
 ### Testing the Upgradable smart contract functionality (ProxyPattern UUPS OpenZeppelin)
 ```
-1. 1-Deploy V1 version first
-2. 2-check the contract address and getCount and Increment the counter to 5
-3. 3-Deploy V2 version second (More function added to V2)
-4. 4-check the contract address (it should be same) and finally check the getCount it should return 5
+1-Deploy V1 version first
+2-check the contract address and getCount and Increment the counter to 5
+3-Deploy V2 version second (More function added to V2)
+4-check the contract address (it should be same) and finally check the getCount it should return 5
 ```
 ### 1-Deploy V1 version first
 ```
