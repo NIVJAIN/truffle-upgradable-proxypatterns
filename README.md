@@ -34,7 +34,7 @@
 ```
 
 
-### Testing the Upgradable smart contract functionality
+### Testing the Upgradable smart contract functionality (ProxyPattern UUPS OpenZeppelin)
 ```
 1. 1-Deploy V1 version first
 2. 2-check the contract address and getCount and Increment the counter to 5
