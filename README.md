@@ -37,9 +37,9 @@
 ### Testing the Upgradable smart contract functionality (ProxyPattern UUPS OpenZeppelin)
 ```
 1-Deploy V1 version first
-2-check the contract address and getCount and Increment the counter to 5
+2-V1 contract interaction, check the contract address and getCount and Increment the counter to 5
 3-Deploy V2 version second (More function added to V2)
-4-check the contract address (it should be same) and finally check the getCount it should return 5
+4-V2 contract interaction, check the contract address (it should be same) and finally check the getCount it should return 5
 ```
 ### 1-Deploy V1 version first
 ```
@@ -51,7 +51,7 @@
 6. truffle console --network ganache
 7. box = await ERC20CustomUpgradeableV1.deployed()
 ```
-### 2-check the contract address and getCount and Increment the counter to 5
+### 2-V1 contract interaction, check the contract address and getCount and Increment the counter to 5
 ```
 1. truffle console --network ganache
 2. v1 = await ERC20CustomUpgradeableV1.deployed()
@@ -67,7 +67,7 @@
 4. truffle compile --all
 5. truffle migrate --network ganache
 ```
-### 4-check the contract address (it should be same as the v1.address) and finally check the getCount it should return 5
+### 4-V2 contract interaction,check the contract address (it should be same as the v1.address) and finally check the getCount it should return 5
 ```
 1. v2 = await ERC20CustomUpgradeableV2.deployed()
 2. v2.address (This address should be the same as V1 address)
